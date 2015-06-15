@@ -7,10 +7,10 @@ gem 'rails-api'
 
 gem 'spring', :group => :development
 
-
 gem 'sqlite3'
 
-
+# Use Pry-rails // chris 4/25/2015
+gem 'pry-rails', :group => :development
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
