@@ -11,7 +11,7 @@ class CreateAuctions < ActiveRecord::Migration
       t.string :service_loc
       t.string :service_loc_type
       t.string :seller_contact
-      t.references :seller, index: true, foreign_key: true
+      t.references :seller, index: true, foreign_key: true, class_name: "User"
 
       t.timestamps null: false
     end
