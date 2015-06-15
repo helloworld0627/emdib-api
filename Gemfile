@@ -12,6 +12,11 @@ gem 'sqlite3'
 # Use Pry-rails // chris 4/25/2015
 gem 'pry-rails', :group => :development
 
+# Use rspec-rails // chris 6/14/2015
+group :development, :test do
+  gem 'rspec-rails', '~> 3.0.1'
+end
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
