@@ -15,6 +15,8 @@ gem 'pry-rails', :group => :development
 # Use rspec-rails // chris 6/14/2015
 group :development, :test do
   gem 'rspec-rails', '~> 3.0.1'
+  gem 'factory_girl_rails'
+  gem 'faker'
 end
 
 # To use ActiveModel has_secure_password
