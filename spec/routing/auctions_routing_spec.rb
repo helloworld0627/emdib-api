@@ -7,16 +7,8 @@ RSpec.describe AuctionsController, :type => :routing do
       expect(:get => "/auctions").to route_to("auctions#index")
     end
 
-    it "routes to #new" do
-      expect(:get => "/auctions/new").to route_to("auctions#new")
-    end
-
     it "routes to #show" do
       expect(:get => "/auctions/1").to route_to("auctions#show", :id => "1")
-    end
-
-    it "routes to #edit" do
-      expect(:get => "/auctions/1/edit").to route_to("auctions#edit", :id => "1")
     end
 
     it "routes to #create" do
@@ -31,5 +23,14 @@ RSpec.describe AuctionsController, :type => :routing do
       expect(:delete => "/auctions/1").to route_to("auctions#destroy", :id => "1")
     end
 
+    ### Commented out ###
+    #
+    #it "routes to #new" do
+    #  expect(:get => "/auctions/new").to route_to("auctions#new")
+    #end
+    #
+    # it "routes to #edit" do
+    # expect(:get => "/auctions/1/edit").to route_to("auctions#edit", :id => "1")
+    #end
   end
 end
