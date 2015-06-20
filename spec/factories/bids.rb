@@ -7,7 +7,7 @@ FactoryGirl.define do
                 strategy: :build
 
     association :business_owner,
-                factory: :business_owner,
+                factory: :biz_user,
                 strategy: :build
   end
 
