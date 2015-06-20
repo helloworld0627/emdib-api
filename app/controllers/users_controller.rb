@@ -54,6 +54,6 @@ class UsersController < ApplicationController
     end
 
     def user_params
-      params[:user]
+      params.permit(:client_id)
     end
 end

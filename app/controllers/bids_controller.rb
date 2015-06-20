@@ -54,6 +54,6 @@ class BidsController < ApplicationController
     end
 
     def bid_params
-      params[:bid]
+      params.permit(:bid_price, :bid_status, :auction_id, :business_owner_id)
     end
 end

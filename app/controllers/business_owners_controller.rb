@@ -54,6 +54,6 @@ class BusinessOwnersController < ApplicationController
     end
 
     def business_owner_params
-      params[:business_owner]
+      params.permit(:client_id, :yelp_url)
     end
 end

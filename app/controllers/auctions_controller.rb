@@ -54,6 +54,16 @@ class AuctionsController < ApplicationController
     end
 
     def auction_params
-      params[:auction]
+      params.permit(:auction_title, 
+                    :auction_desc,
+                    :auction_status,
+                    :auction_start_price,
+                    :auction_end_price,
+                    :auction_start_date,
+                    :auction_end_date,
+                    :service_loc,
+                    :service_loc_type,
+                    :seller_contact,
+                    :seller_id)
     end
 end
