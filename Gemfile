@@ -19,6 +19,8 @@ group :development, :test do
   gem 'faker'
 end
 
+gem "koala", "~> 2.0"
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
