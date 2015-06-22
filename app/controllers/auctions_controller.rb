@@ -4,7 +4,8 @@ class AuctionsController < ApplicationController
   # GET /auctions
   # GET /auctions.json
   def index
-    @auctions = Auction.all
+    user_id = @user.id
+    @auctions = Auction.where("seller_id = ?", user_id)
 
     render json: @auctions
   end
@@ -19,6 +20,7 @@ class AuctionsController < ApplicationController
   # POST /auctions.json
   def create
     @auction = Auction.new(auction_params)
+    @auction.seller = @user
 
     if @auction.save
       render json: @auction, status: :created, location: @auction
@@ -30,7 +32,7 @@ class AuctionsController < ApplicationController
   # PATCH/PUT /auctions/1
   # PATCH/PUT /auctions/1.json
   def update
-    @auction = Auction.find(params[:id])
+    #@auction = Auction.find(params[:id])
 
     if @auction.update(auction_params)
       head :no_content
@@ -43,14 +45,17 @@ class AuctionsController < ApplicationController
   # DELETE /auctions/1.json
   def destroy
     @auction.destroy
-
     head :no_content
   end
 
   private
 
     def set_auction
-      @auction = Auction.find(params[:id])
+      user_id = @user.id
+      @auction = Auction.find_by(
+        {:seller => user_id, :id => params[:id]})
+      
+      render json: nil, status: :not_found if @auction == nil
     end
 
     def auction_params
@@ -63,7 +68,6 @@ class AuctionsController < ApplicationController
                     :auction_end_date,
                     :service_loc,
                     :service_loc_type,
-                    :seller_contact,
-                    :seller_id)
+                    :seller_contact)
     end
 end
