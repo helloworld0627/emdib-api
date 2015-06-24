@@ -1,7 +1,12 @@
 Rails.application.routes.draw do
-  resources :bids, except: [:new, :edit]
+  namespace :customer do
+    resources :auctions, except: [:new, :edit] do
+        resources :bids, except: [:new, :edit]
+    end
+  end
+  
   resources :users, except: [:new, :edit]
-  resources :auctions, except: [:new, :edit]
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

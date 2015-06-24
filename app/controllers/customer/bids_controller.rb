@@ -1,11 +1,10 @@
-class BidsController < ApplicationController
+class Customer::BidsController < ApplicationController
   before_action :set_bid, only: [:show, :update, :destroy]
 
   # GET /bids
   # GET /bids.json
   def index
-    user_id = @user.id
-    @bids = Bid.where("business_owner_id = ?", user_id)
+    @bids = Bid.where("auction_id = ?", params[:auction_id])
 
     render json: @bids
   end
