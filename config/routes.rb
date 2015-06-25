@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   namespace :customer do
-    resources :auctions, except: [:new, :edit] do
-        resources :bids, except: [:new, :edit]
+    resources :auctions, only: [:index, :show, :create, :update] do
+        resources :bids, only: [:index, :show, :update]
     end
   end
   

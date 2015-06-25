@@ -1,5 +1,5 @@
 class Customer::AuctionsController < ApplicationController
-  before_action :set_auction, only: [:show, :update, :destroy]
+  before_action :set_auction, only: [:show, :update]
 
   # GET /auctions
   # GET /auctions.json
@@ -7,6 +7,7 @@ class Customer::AuctionsController < ApplicationController
     user_id = @user.id
     @auctions = Auction.where("seller_id = ?", user_id)
 
+    # get all belong auctions
     render json: @auctions
   end
 
@@ -23,7 +24,7 @@ class Customer::AuctionsController < ApplicationController
     @auction.seller = @user
 
     if @auction.save
-      render json: @auction, status: :created, location: @auction
+      render json: @auction, status: :created, location: customer_auction_url(@auction)
     else
       render json: @auction.errors, status: :unprocessable_entity
     end
@@ -32,8 +33,6 @@ class Customer::AuctionsController < ApplicationController
   # PATCH/PUT /auctions/1
   # PATCH/PUT /auctions/1.json
   def update
-    #@auction = Auction.find(params[:id])
-
     if @auction.update(auction_params)
       head :no_content
     else
@@ -41,21 +40,13 @@ class Customer::AuctionsController < ApplicationController
     end
   end
 
-  # DELETE /auctions/1
-  # DELETE /auctions/1.json
-  def destroy
-    @auction.destroy
-    head :no_content
-  end
-
   private
-
+    # get belonging auction 
     def set_auction
-      user_id = @user.id
       @auction = Auction.find_by(
-        {:seller => user_id, :id => params[:id]})
+        {:seller => @user, :id => params[:id]})
       
-      render json: nil, status: :not_found if @auction == nil
+      render json: nil, status: :not_found if @auction.nil?
     end
 
     def auction_params
@@ -66,8 +57,8 @@ class Customer::AuctionsController < ApplicationController
                     :auction_end_price,
                     :auction_start_date,
                     :auction_end_date,
-                    :service_loc,
-                    :service_loc_type,
-                    :seller_contact)
+                    :category_id,
+                    :longtitude,
+                    :latitude)
     end
 end
