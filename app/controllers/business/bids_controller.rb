@@ -1,59 +1,61 @@
 class Business::BidsController < ApplicationController
-  before_action :set_business_bid, only: [:show, :update, :destroy]
+  before_action :set_bid, only: [:show, :update]
 
   # GET /business/bids
   # GET /business/bids.json
   def index
-    @business_bids = Business::Bid.all
-
-    render json: @business_bids
+    user_id = @user.id
+    @bids = Bid.where("business_owner_id = ? and auction_id = ?", 
+                      user_id, params[:auction_id])
+    render json: @bids
   end
 
   # GET /business/bids/1
   # GET /business/bids/1.json
   def show
-    render json: @business_bid
+    render json: @bid
   end
 
   # POST /business/bids
   # POST /business/bids.json
   def create
-    @business_bid = Business::Bid.new(business_bid_params)
+    @bid = Bid.new(bid_params)
+    @bid.business_owner_id = @user.id
+    @bid.bid_status = :non_progess
 
-    if @business_bid.save
-      render json: @business_bid, status: :created, location: @business_bid
+    auction = Auction.find(params[:auction_id])
+    @bid.auction = auction
+
+    if @bid.save
+      render json: @bid, status: :created,
+       location: business_auction_bid_url({:auction_id => auction.id, :id => @bid.id})
     else
-      render json: @business_bid.errors, status: :unprocessable_entity
+      render json: @bid.errors, status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /business/bids/1
   # PATCH/PUT /business/bids/1.json
   def update
-    @business_bid = Business::Bid.find(params[:id])
-
-    if @business_bid.update(business_bid_params)
+    if @bid.update(bid_params)
       head :no_content
     else
-      render json: @business_bid.errors, status: :unprocessable_entity
+      render json: @bid.errors, status: :unprocessable_entity
     end
-  end
-
-  # DELETE /business/bids/1
-  # DELETE /business/bids/1.json
-  def destroy
-    @business_bid.destroy
-
-    head :no_content
   end
 
   private
 
-    def set_business_bid
-      @business_bid = Business::Bid.find(params[:id])
+    def set_bid
+      @bid = Bid.find_by({
+        :id => params[:id],
+        :auction_id => params[:auction_id],
+        :business_owner_id => @user.id})
+
+      render json: nil, status: :not_found if @bid.nil?
     end
 
-    def business_bid_params
-      params[:business_bid]
+    def bid_params
+      params.permit(:bid_price, :bid_status)
     end
 end
