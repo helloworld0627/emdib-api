@@ -1,59 +1,56 @@
 class Util::CommentsController < ApplicationController
-  before_action :set_util_comment, only: [:show, :update, :destroy]
+  before_action :set_comment, only: [:show, :update]
 
   # GET /util/comments
   # GET /util/comments.json
   def index
-    @util_comments = Util::Comment.all
+    @comments = Comment.where(
+      "auction_id = ? ",
+      params[:auction_id])
 
-    render json: @util_comments
+    render json: @comments
   end
 
   # GET /util/comments/1
   # GET /util/comments/1.json
   def show
-    render json: @util_comment
+    render json: @comment
   end
 
   # POST /util/comments
   # POST /util/comments.json
   def create
-    @util_comment = Util::Comment.new(util_comment_params)
+    @comment = Comment.new(comment_params)
+    @comment.auction_id = params[:auction_id]
+    @comment.user = @user
 
-    if @util_comment.save
-      render json: @util_comment, status: :created, location: @util_comment
+    if @comment.save
+      render json: @comment, status: :created,
+             location: util_auction_comment_url({:id => @comment.id})
     else
-      render json: @util_comment.errors, status: :unprocessable_entity
+      render json: @comment.errors, status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /util/comments/1
   # PATCH/PUT /util/comments/1.json
   def update
-    @util_comment = Util::Comment.find(params[:id])
-
-    if @util_comment.update(util_comment_params)
+    if @comment.update(comment_params)
       head :no_content
     else
-      render json: @util_comment.errors, status: :unprocessable_entity
+      render json: @comment.errors, status: :unprocessable_entity
     end
-  end
-
-  # DELETE /util/comments/1
-  # DELETE /util/comments/1.json
-  def destroy
-    @util_comment.destroy
-
-    head :no_content
   end
 
   private
 
-    def set_util_comment
-      @util_comment = Util::Comment.find(params[:id])
+    def set_comment
+      @comment = Comment.find_by({
+        :id => params[:id],
+        :auction_id => params[:auction_id]})
     end
 
-    def util_comment_params
-      params[:util_comment]
+    def comment_params
+      params.permit(:content)
     end
 end

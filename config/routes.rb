@@ -13,6 +13,10 @@ Rails.application.routes.draw do
 
   namespace :util do
     resources :categories, only: [:index, :show]
+
+    resources :auctions, only: [] do
+      resources :comments, only: [:index, :show, :create, :update]
+    end
   end
 
   resources :users, except: [:new, :edit]
