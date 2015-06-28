@@ -11,5 +11,5 @@ class Auction < ActiveRecord::Base
   validates_numericality_of :auction_end_price, greater_than: :auction_start_price
   validates_presence_of :seller
 
-  enum auction_status: [:non_progress, :in_progress, :done, :cancel]
+  enum auction_status: [:begin, :end, :cancel]
 end

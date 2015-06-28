@@ -7,5 +7,5 @@ class Bid < ActiveRecord::Base
   validates_presence_of :auction
   validates_presence_of :business_owner
 
-  enum bid_status: [:non_progess, :progress, :cancel, :done_win, :done_lose]
+  enum bid_status: [:begin, :end_win, :end_lose, :cancel]
 end
