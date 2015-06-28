@@ -7,18 +7,17 @@ gem 'rails-api'
 
 gem 'spring', :group => :development
 
-gem 'sqlite3', :group => :development
-
-gem 'pg', :group => :production
-
 # Use Pry-rails // chris 4/25/2015
 gem 'pry-rails', :group => :development
+
+gem 'pg'
 
 # Use rspec-rails // chris 6/14/2015
 group :development, :test do
   gem 'rspec-rails', '~> 3.0.1'
   gem 'factory_girl_rails'
   gem 'faker'
+  #gem 'sqlite3'
 end
 
 gem "koala", "~> 2.0"
