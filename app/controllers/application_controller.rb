@@ -1,9 +1,9 @@
 class ApplicationController < ActionController::API
 	include ActionController::HttpAuthentication::Token::ControllerMethods
-  before_action :set_user
+  before_action :set_auth_user
 
   protected
-	def set_user
+	def set_auth_user
 	  authenticate_or_request_with_http_token do |oauth_access_token, options|
 	  	begin
 	  	  @graph = Koala::Facebook::API.new(oauth_access_token)
