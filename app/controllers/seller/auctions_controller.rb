@@ -1,4 +1,4 @@
-class Customer::AuctionsController < ApplicationController
+class Seller::AuctionsController < ApplicationController
   before_action :set_auction, only: [:show, :update]
 
   # GET /auctions

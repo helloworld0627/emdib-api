@@ -46,7 +46,7 @@ bids = Bid.create(
     	:bid_price => 7,
     	:bid_status => :cancel,
     	:auction => auction_yard,
-    	:business_owner => biz
+    	:buyer => biz
      }
     ])
 

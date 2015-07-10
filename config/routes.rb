@@ -1,11 +1,11 @@
 Rails.application.routes.draw do
-  namespace :customer do
+  namespace :seller do
     resources :auctions, only: [:index, :show, :create, :update] do
         resources :bids, only: [:index, :show, :update]
     end
   end
   
-  namespace :business do
+  namespace :buyer do
     resources :auctions, only: [:index] do
         resources :bids, only: [:index, :show, :create, :update]
     end

@@ -1,11 +1,11 @@
-class Business::BidsController < ApplicationController
+class Buyer::BidsController < ApplicationController
   before_action :set_bid, only: [:show, :update]
 
   # GET /business/bids
   # GET /business/bids.json
   def index
     user_id = @user.id
-    @bids = Bid.where("business_owner_id = ? and auction_id = ?", 
+    @bids = Bid.where("buyer_id = ? and auction_id = ?", 
                       user_id, params[:auction_id])
     render json: @bids
   end
@@ -20,7 +20,7 @@ class Business::BidsController < ApplicationController
   # POST /business/bids.json
   def create
     @bid = Bid.new(bid_params)
-    @bid.business_owner_id = @user.id
+    @bid.buyer_id = @user.id
     @bid.bid_status = :non_progess
 
     auction = Auction.find(params[:auction_id])
@@ -50,7 +50,7 @@ class Business::BidsController < ApplicationController
       @bid = Bid.find_by({
         :id => params[:id],
         :auction_id => params[:auction_id],
-        :business_owner_id => @user.id})
+        :buyer_id => @user.id})
 
       render json: nil, status: :not_found if @bid.nil?
     end

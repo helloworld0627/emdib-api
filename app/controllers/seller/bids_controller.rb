@@ -1,4 +1,4 @@
-class Customer::BidsController < ApplicationController
+class Seller::BidsController < ApplicationController
   before_action :set_bid, only: [:show, :update]
 
   # GET /bids
