@@ -35,7 +35,9 @@ auctions = Auction.create(
     	:auction_end_price => 70,
     	:auction_start_date => Time.new(2015, 05, 01),
     	:auction_end_date => Time.new(2015, 06, 01),
-    	:category => category_yard,
+    	:longtitude => 100,
+        :latitude => 20,
+        :category => category_yard,
     	:seller => me
       }
 	])
