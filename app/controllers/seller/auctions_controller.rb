@@ -24,7 +24,7 @@ class Seller::AuctionsController < ApplicationController
     @auction.seller = @user
 
     if @auction.save
-      render json: @auction, status: :created, location: customer_auction_url(@auction)
+      render json: @auction, status: :created, location: seller_auction_url(@auction)
     else
       render json: @auction.errors, status: :unprocessable_entity
     end
